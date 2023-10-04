@@ -8,7 +8,7 @@ export const resolvers: Resolvers = {
       const booking = await context.prisma.booking.create({
         data: {
           datetime: args.datetime,
-          firsName: args.firsName,
+          firstName: args.firstName,
           lastName: args.lastName,
           organization: args.organization,
           organizationTitle: args.organizationTitle,
