@@ -29,7 +29,7 @@ const yoga = createYoga({
   },
   cors: {
     allowedHeaders: ["Content-Type"],
-    methods: ["OPTIONS", "POST"],
+    methods: ["POST"],
     origin: process.env.CORS_ORIGIN ?? "*",
   },
   graphiql: process.env.VERCEL_ENV !== "production",
