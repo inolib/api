@@ -20,6 +20,16 @@ export const resolvers: Resolvers = {
       return booking;
     },
 
+    deleteBooking: async (_, args, context) => {
+      const booking = await context.prisma.booking.delete({
+        where: {
+          id: args.id,
+        },
+      });
+
+      return booking;
+    },
+
     createPaymentIntent: async (_, args, context) => {
       console.log("createPaymentIntent");
 

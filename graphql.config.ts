@@ -23,6 +23,7 @@ const config: IGraphQLConfig = {
             },
             maybeValue: "T | null | void",
             scalars: {
+              Cuid: "string",
               DateTime: "string",
               EmailAddress: "string",
               PhoneNumber: "string",

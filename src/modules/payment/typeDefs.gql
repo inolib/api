@@ -9,6 +9,8 @@ extend type Mutation {
     tel: String!
   ): Booking!
 
+  deleteBooking(id: Cuid!): Booking!
+
   createPaymentIntent: PaymentIntent!
 }
 
