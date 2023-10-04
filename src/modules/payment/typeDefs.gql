@@ -1,18 +1,20 @@
 extend type Mutation {
-  createCustomer(
+  createBooking(
+    datetime: DateTime!
     firsName: String!
     lastName: String!
     organization: String!
     organizationTitle: String!
     email: String!
     tel: String!
-  ): Customer!
+  ): Booking!
 
   createPaymentIntent: PaymentIntent!
 }
 
-type Customer {
+type Booking {
   id: Cuid!
+  datetime: DateTime!
   firsName: String!
   lastName: String!
   organization: String!

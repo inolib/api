@@ -2,11 +2,12 @@ import type { Resolvers } from "./types";
 
 export const resolvers: Resolvers = {
   Mutation: {
-    createCustomer: async (_, args, context) => {
-      console.log("createCustomer");
+    createBooking: async (_, args, context) => {
+      console.log("createBooking");
 
-      const customer = await context.prisma.customer.create({
+      const booking = await context.prisma.booking.create({
         data: {
+          datetime: args.datetime,
           firsName: args.firsName,
           lastName: args.lastName,
           organization: args.organization,
@@ -16,7 +17,7 @@ export const resolvers: Resolvers = {
         },
       });
 
-      return customer;
+      return booking;
     },
 
     createPaymentIntent: async (_, args, context) => {

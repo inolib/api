@@ -9,6 +9,18 @@ datasource db {
   relationMode = "prisma"
 }
 
+model Booking {
+  id                String   @id @default(cuid())
+  datetime          DateTime
+  firsName          String
+  lastName          String
+  organization      String
+  organizationTitle String
+  email             String
+  tel               String
+  createdAt         DateTime @default(now())
+}
+
 model ContactCategory {
   id        String   @id @default(cuid())
   name      String   @unique
@@ -31,15 +43,4 @@ model ContactRequest {
   category ContactCategory @relation(fields: [categoryId], references: [id])
 
   @@index([categoryId])
-}
-
-model Customer {
-  id                String   @id @default(cuid())
-  firsName          String
-  lastName          String
-  organization      String
-  organizationTitle String
-  email             String
-  tel               String
-  createdAt         DateTime @default(now())
 }
