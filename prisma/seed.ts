@@ -3,6 +3,9 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const main = async () => {
+  // Booking
+  await prisma.booking.deleteMany();
+
   // ContactCategory
   await prisma.contactCategory.deleteMany();
 
@@ -26,9 +29,6 @@ const main = async () => {
 
   // ContactRequest
   await prisma.contactRequest.deleteMany();
-
-  // Customer
-  await prisma.customer.deleteMany();
 };
 
 main()
