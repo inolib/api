@@ -3,8 +3,6 @@ import type { Resolvers } from "./types";
 export const resolvers: Resolvers = {
   Mutation: {
     createBooking: async (_, args, context) => {
-      console.log("createBooking");
-
       const booking = await context.prisma.booking.create({
         data: {
           datetime: args.datetime,
@@ -17,6 +15,8 @@ export const resolvers: Resolvers = {
         },
       });
 
+      console.log("createBooking", booking.id);
+
       return booking;
     },
 
@@ -26,6 +26,8 @@ export const resolvers: Resolvers = {
           id: args.id,
         },
       });
+
+      console.log("deleteBooking", booking.id);
 
       return booking;
     },
