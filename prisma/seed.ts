@@ -29,57 +29,6 @@ const main = async () => {
 
   // Customer
   await prisma.customer.deleteMany();
-
-  // PaymentStatus
-  await prisma.paymentStatus.deleteMany();
-
-  await prisma.paymentStatus.create({
-    data: {
-      name: "Completed",
-    },
-  });
-
-  await prisma.paymentStatus.create({
-    data: {
-      name: "Pending",
-    },
-  });
-
-  await prisma.paymentStatus.create({
-    data: {
-      name: "Refunded",
-    },
-  });
-
-  await prisma.paymentStatus.create({
-    data: {
-      name: "Rejected",
-    },
-  });
-
-  // Payment
-  await prisma.payment.deleteMany();
-
-  // ProductCategory
-  await prisma.productCategory.deleteMany();
-
-  const productCategory = await prisma.productCategory.create({
-    data: {
-      name: "Conférence",
-    },
-  });
-
-  // Product
-  await prisma.product.deleteMany();
-
-  await prisma.product.create({
-    data: {
-      categoryId: productCategory.id,
-      name: "SEEPH 2023 - L’accessibilité numérique, un monde d’opportunités",
-      price: 70,
-      currency: "EUR",
-    },
-  });
 };
 
 main()
