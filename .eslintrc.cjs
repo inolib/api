@@ -27,4 +27,8 @@ module.exports = {
       extends: "plugin:@graphql-eslint/schema-recommended",
     },
   ],
+  rules: {
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/no-unused-vars": "warn",
+  },
 };
