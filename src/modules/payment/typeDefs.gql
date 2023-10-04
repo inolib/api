@@ -1,0 +1,62 @@
+extend type Mutation {
+  createPayment: Payment!
+  createPaymentIntent: PaymentIntent!
+}
+
+type Customer {
+  id: Cuid!
+  firsName: String!
+  lastName: String!
+  organization: String!
+  organizationTitle: String!
+  email: String!
+  tel: String!
+  createdAt: DateTime!
+
+  payments: [Payment!]!
+}
+
+type Payment {
+  id: Cuid!
+  customerId: Cuid!
+  productId: Cuid!
+  quantity: Int!
+  statusId: Cuid!
+  createdAt: DateTime!
+
+  customer: Customer!
+  product: Product!
+  status: PaymentStatus!
+}
+
+type PaymentIntent {
+  clientSecret: String!
+}
+
+type PaymentStatus {
+  id: Cuid!
+  name: String!
+  createdAt: DateTime!
+
+  payments: [Payment!]!
+}
+
+type Product {
+  id: Cuid!
+  categoryId: Cuid!
+  name: String!
+  price: Float!
+  currency: String!
+  createdAt: DateTime!
+
+  category: ProductCategory!
+  payments: [Payment!]!
+}
+
+type ProductCategory {
+  id: Cuid!
+  name: String!
+  createdAt: DateTime!
+
+  products: [Product!]!
+}

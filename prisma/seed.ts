@@ -3,77 +3,81 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const main = async () => {
-  // ContactRequest
-  await prisma.contactRequest.deleteMany();
-
   // ContactCategory
   await prisma.contactCategory.deleteMany();
 
-  await prisma.contactCategory.upsert({
-    where: { name: "Audit" },
-    update: {},
-    create: {
+  await prisma.contactCategory.create({
+    data: {
       name: "Audit",
     },
   });
 
-  await prisma.contactCategory.upsert({
-    where: { name: "Développement" },
-    update: {},
-    create: {
+  await prisma.contactCategory.create({
+    data: {
       name: "Développement",
     },
   });
 
-  await prisma.contactCategory.upsert({
-    where: { name: "Formation" },
-    update: {},
-    create: {
+  await prisma.contactCategory.create({
+    data: {
       name: "Formation",
     },
   });
 
-  // Document
-  await prisma.document.deleteMany();
-  await prisma.document.findUnique();
+  // ContactRequest
+  await prisma.contactRequest.deleteMany();
 
-  await prisma.document.create({
+  // Customer
+  await prisma.customer.deleteMany();
+
+  // PaymentStatus
+  await prisma.paymentStatus.deleteMany();
+
+  await prisma.paymentStatus.create({
     data: {
-      title: "Bonjour",
-      content: "Dev",
+      name: "Completed",
     },
   });
 
-  await prisma.document.create({
+  await prisma.paymentStatus.create({
     data: {
-      title: "Facture",
-      content: "Formation",
+      name: "Pending",
     },
   });
 
-  await prisma.document.create({
+  await prisma.paymentStatus.create({
     data: {
-      title: "Hello",
-      content: "Audit",
+      name: "Refunded",
     },
   });
 
-  if (!document) {
-    throw new Error("Document not found");
-  }
+  await prisma.paymentStatus.create({
+    data: {
+      name: "Rejected",
+    },
+  });
 
-  // User
-  await prisma.user.deleteMany();
+  // Payment
+  await prisma.payment.deleteMany();
 
-  await prisma.user.upsert({
-    where: { id: "" },
-    update: {},
-    create: {
-      firstName: "Quentin",
-      lastName: "Ferrari",
-      email: "quentinferrari@gmail.com",
-      phone: "0123456789",
-      password: "helloworld",
+  // ProductCategory
+  await prisma.productCategory.deleteMany();
+
+  const productCategory = await prisma.productCategory.create({
+    data: {
+      name: "Conférence",
+    },
+  });
+
+  // Product
+  await prisma.product.deleteMany();
+
+  await prisma.product.create({
+    data: {
+      categoryId: productCategory.id,
+      name: "SEEPH 2023 - L’accessibilité numérique, un monde d’opportunités",
+      price: 70,
+      currency: "EUR",
     },
   });
 };

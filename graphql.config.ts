@@ -19,7 +19,11 @@ const config: IGraphQLConfig = {
             mappers: {
               ContactCategory: "@prisma/client#ContactCategory",
               ContactRequest: "@prisma/client#ContactRequest",
-              Document: "@prisma/client#Document",
+              Customer: "@prisma/client#Customer",
+              Payment: "@prisma/client#Payment",
+              PaymentStatus: "@prisma/client#PaymentStatus",
+              Product: "@prisma/client#Product",
+              ProductCategory: "@prisma/client#ProductCategory",
             },
             maybeValue: "T | null | void",
             useTypeImports: true,

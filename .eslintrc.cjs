@@ -2,8 +2,8 @@ module.exports = {
   root: true,
   extends: [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/recommended-stylistic-type-checked",
     "prettier",
   ],
   env: {
@@ -14,7 +14,7 @@ module.exports = {
   parserOptions: {
     sourceType: "module",
     ecmaVersion: "latest",
-    project: ["./tsconfig.eslint.json"],
+    project: ["./.config/tsc/eslint/tsconfig.json"],
     tsconfigRootDir: __dirname,
   },
   overrides: [

@@ -1,14 +1,16 @@
 {
-  "include": ["./src"],
+  "include": ["."],
   "compilerOptions": {
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "skipLibCheck": true,
-    "strict": true
+    "target": "ESNext",
+    "strict": true,
+    "verbatimModuleSyntax": true
   }
 }

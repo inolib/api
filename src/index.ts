@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { createApplication } from "graphql-modules";
 import { createYoga } from "graphql-yoga";
 import { createTransport } from "nodemailer";
+import Stripe from "stripe";
 
 import { modules } from "./modules";
 
@@ -19,10 +20,16 @@ const yoga = createYoga({
       },
     }),
     prisma: new PrismaClient(),
+    stripe: new Stripe(
+      "sk_test_51Nuz8EK4mWBX9EWw2LRndsz6eOfYkf3wqsvuLPe7QJxq3Bti8d7YEMsPRIRdNw7wVPX7N3GitJSsaVFqqQSBXbw4006i6DrqnF",
+      {
+        apiVersion: "2023-08-16",
+      },
+    ),
   },
   cors: {
     allowedHeaders: ["Content-Type"],
-    methods: ["POST"],
+    methods: ["OPTIONS", "POST"],
     origin: process.env.CORS_ORIGIN ?? "*",
   },
   graphiql: process.env.VERCEL_ENV !== "production",
