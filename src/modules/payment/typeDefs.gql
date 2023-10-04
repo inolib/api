@@ -1,7 +1,7 @@
 extend type Mutation {
   createBooking(
     datetime: DateTime!
-    firsName: String!
+    firstName: String!
     lastName: String!
     organization: String!
     organizationTitle: String!
@@ -15,7 +15,7 @@ extend type Mutation {
 type Booking {
   id: Cuid!
   datetime: DateTime!
-  firsName: String!
+  firstName: String!
   lastName: String!
   organization: String!
   organizationTitle: String!
