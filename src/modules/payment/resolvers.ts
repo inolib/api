@@ -15,6 +15,7 @@ export const resolvers: Resolvers = {
         },
       });
 
+      // TODO: remove debug
       console.log("createBooking", booking.id);
 
       return booking;
@@ -27,6 +28,7 @@ export const resolvers: Resolvers = {
         },
       });
 
+      // TODO: remove debug
       console.log("deleteBooking", booking.id);
 
       return booking;
