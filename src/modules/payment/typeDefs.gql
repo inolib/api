@@ -1,5 +1,6 @@
 extend type Mutation {
   createBooking(
+    id: Cuid
     datetime: DateTime!
     firstName: String!
     lastName: String!

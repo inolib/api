@@ -3,8 +3,20 @@ import type { Resolvers } from "./types";
 export const resolvers: Resolvers = {
   Mutation: {
     createBooking: async (_, args, context) => {
-      const booking = await context.prisma.booking.create({
-        data: {
+      const booking = await context.prisma.booking.upsert({
+        where: {
+          id: args.id ?? "",
+        },
+        update: {
+          datetime: args.datetime,
+          firstName: args.firstName,
+          lastName: args.lastName,
+          organization: args.organization,
+          organizationTitle: args.organizationTitle,
+          email: args.email,
+          tel: args.tel,
+        },
+        create: {
           datetime: args.datetime,
           firstName: args.firstName,
           lastName: args.lastName,
