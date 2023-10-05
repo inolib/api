@@ -9,7 +9,7 @@
     "build:api": "vite build",
     "build:types": "pnpm run build:types.gql && pnpm run build:types.prisma",
     "build:types.gql": "vite-node ./src/scripts/build/types.gql/pre.ts && graphql-codegen",
-    "build:types.prisma": "prisma generate",
+    "build:types.prisma": "prisma generate --schema=./src/prisma/schema.prisma",
     "db:push": "prisma db push",
     "db:seed": "vite-node ./prisma/seed.ts",
     "db:studio": "prisma studio --browser none",
