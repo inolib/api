@@ -50,7 +50,7 @@ export const resolvers: Resolvers = {
       const customer = await context.stripe.customers.create();
 
       const paymentIntent = await context.stripe.paymentIntents.create({
-        amount: 7000,
+        amount: 8400,
         currency: "EUR",
         customer: customer.id,
         setup_future_usage: "off_session",
