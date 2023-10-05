@@ -19,6 +19,7 @@ export const resolvers: Resolvers = {
           organizationTitle: args.organizationTitle,
           tel: args.tel,
         },
+        receipt_email: args.email,
       });
     },
   },
