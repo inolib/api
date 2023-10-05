@@ -5,6 +5,8 @@ import { createYoga } from "graphql-yoga";
 import { createTransport } from "nodemailer";
 import Stripe from "stripe";
 
+import express from "express";
+
 import { modules } from "./modules";
 
 const yoga = createYoga({
@@ -33,9 +35,17 @@ const yoga = createYoga({
     origin: process.env.CORS_ORIGIN ?? "*",
   },
   graphiql: process.env.VERCEL_ENV !== "production",
-  graphqlEndpoint: "/",
   landingPage: false,
 });
 
-export const viteNodeApp = yoga;
-export default yoga;
+const app = express();
+
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+app.use("/graphql", yoga);
+
+app.post("/stripe/webhook", (request, response) => {
+  // TODO
+});
+
+export const viteNodeApp = app;
+export default app;
