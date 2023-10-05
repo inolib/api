@@ -1,6 +1,5 @@
 extend type Mutation {
-  createBooking(
-    id: Cuid
+  createPaymentIntent(
     datetime: DateTime!
     firstName: String!
     lastName: String!
@@ -8,23 +7,7 @@ extend type Mutation {
     organizationTitle: String!
     email: String!
     tel: String!
-  ): Booking!
-
-  deleteBooking(id: Cuid!): Booking!
-
-  createPaymentIntent: PaymentIntent!
-}
-
-type Booking {
-  id: Cuid!
-  datetime: DateTime!
-  firstName: String!
-  lastName: String!
-  organization: String!
-  organizationTitle: String!
-  email: String!
-  tel: String!
-  createdAt: DateTime!
+  ): PaymentIntent!
 }
 
 type PaymentIntent {
