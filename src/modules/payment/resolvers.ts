@@ -2,6 +2,10 @@ import type { Resolvers } from "./types";
 
 export const resolvers: Resolvers = {
   Mutation: {
+    cancelPaymentIntent: async (_, args, context) => {
+      await context.stripe.paymentIntents.cancel(args.id);
+    },
+
     createPaymentIntent: async (_, args, context) => {
       const paymentIntent = await context.stripe.paymentIntents.create({
         amount: 8400,

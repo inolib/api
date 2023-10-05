@@ -1,4 +1,6 @@
 extend type Mutation {
+  cancelPaymentIntent(id: String!): PaymentIntent!
+
   createPaymentIntent(
     datetime: DateTime!
     firstName: String!
