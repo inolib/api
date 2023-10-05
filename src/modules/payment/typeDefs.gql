@@ -13,6 +13,6 @@ extend type Mutation {
 }
 
 type PaymentIntent {
-  clientSecret: String
+  client_secret: String
   id: String!
 }
