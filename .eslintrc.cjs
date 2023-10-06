@@ -8,7 +8,6 @@ module.exports = {
     "plugin:react/jsx-runtime",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:tailwindcss/recommended",
     "prettier",
   ],
   env: {

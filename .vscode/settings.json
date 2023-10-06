@@ -7,17 +7,5 @@
   // Extensions
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  },
-
-  "files.associations": {
-    "*.css": "tailwindcss"
-  },
-  "tailwindCSS.experimental.classRegex": [
-    [
-      "clsx\\(([^)]*)\\)",
-      "cn\\(([^)]*)\\)",
-      "twMerge\\(([^)]*)\\)",
-      "(?:'|\"|`)([^']*)(?:'|\"|`)"
-    ]
-  ]
+  }
 }
