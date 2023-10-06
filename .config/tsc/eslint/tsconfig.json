@@ -5,10 +5,7 @@
     "../../prettier/packagejson/prettier.config.js",
     "../../prettier/prisma/prettier.config.js",
     "../../prettier/sort-imports/prettier.config.js",
-    "../../prettier/tailwindcss/prettier.config.js",
     "../../../.eslintrc.cjs",
-    "../../../postcss.config.js",
-    "../../../prettier.config.js",
-    "../../../tailwind.config.js"
+    "../../../prettier.config.js"
   ]
 }
