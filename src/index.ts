@@ -32,7 +32,12 @@ const app = express();
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 app.use("/graphql", yoga);
-app.post("/stripe/webhook", stripeWebhook);
+
+app.post(
+  "/stripe/webhook",
+  express.json({ type: "application/json" }),
+  stripeWebhook,
+);
 
 export const viteNodeApp = app;
 export default app;
