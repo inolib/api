@@ -1,18 +1,18 @@
 import type { RequestHandler } from "express";
 import { isPossiblePhoneNumber } from "libphonenumber-js";
-import type Stripe from "stripe";
+// import type Stripe from "stripe";
 import {
   custom,
   email,
   minLength,
   object,
-  safeParse,
+  // safeParse,
   string,
   toTrimmed,
   type Input,
 } from "valibot";
 
-import { prisma } from "../prisma/prisma";
+// import { prisma } from "../prisma/prisma";
 
 export type Booking = Input<typeof BookingSchema>;
 
@@ -47,34 +47,36 @@ const BookingSchema = object({
 });
 
 export const webhook: RequestHandler = (request, response) => {
-  void (async () => {
-    const event = JSON.parse(JSON.stringify(request.body)) as Stripe.Event;
+  void (() => {
+    console.log(request.body);
 
-    switch (event.type) {
-      case "payment_intent.succeeded": {
-        const paymentIntent = event.data.object as Stripe.PaymentIntent;
+    // const event = JSON.parse(JSON.stringify(request.body)) as Stripe.Event;
 
-        const result = safeParse(BookingSchema, paymentIntent.metadata);
+    // switch (event.type) {
+    //   case "payment_intent.succeeded": {
+    //     const paymentIntent = event.data.object as Stripe.PaymentIntent;
 
-        if (result.success) {
-          const booking = await prisma.booking.create({
-            data: {
-              datetime: result.output.datetime,
-              email: result.output.email,
-              firstName: result.output.firstName,
-              lastName: result.output.lastName,
-              organization: result.output.organization,
-              organizationTitle: result.output.organizationTitle,
-              tel: result.output.tel,
-            },
-          });
+    //     const result = safeParse(BookingSchema, paymentIntent.metadata);
 
-          // TODO: send email
-        }
+    //     if (result.success) {
+    //       const booking = await prisma.booking.create({
+    //         data: {
+    //           datetime: result.output.datetime,
+    //           email: result.output.email,
+    //           firstName: result.output.firstName,
+    //           lastName: result.output.lastName,
+    //           organization: result.output.organization,
+    //           organizationTitle: result.output.organizationTitle,
+    //           tel: result.output.tel,
+    //         },
+    //       });
 
-        break;
-      }
-    }
+    //       // TODO: send email
+    //     }
+
+    //     break;
+    //   }
+    // }
 
     response.send();
   })();
