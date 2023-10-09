@@ -1,0 +1,46 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("PRISMA_URL")
+  relationMode = "prisma"
+}
+
+model Booking {
+  id                String   @id @default(cuid())
+  datetime          DateTime
+  firstName         String
+  lastName          String
+  organization      String
+  organizationTitle String
+  email             String
+  tel               String
+  createdAt         DateTime @default(now())
+}
+
+model ContactCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+
+  requests ContactRequest[]
+}
+
+model ContactRequest {
+  id          String   @id @default(cuid())
+  categoryId  String
+  companyName String
+  firstName   String
+  lastName    String
+  email       String
+  phone       String
+  message     String   @db.Text
+  createdAt   DateTime @default(now())
+
+  category ContactCategory @relation(fields: [categoryId], references: [id])
+
+  @@index([categoryId])
+}

@@ -1,4 +1,4 @@
-import { IGraphQLConfig } from "graphql-config";
+import type { IGraphQLConfig } from "graphql-config";
 
 const config: IGraphQLConfig = {
   schema: "./src/modules/**/*.gql",
@@ -17,11 +17,17 @@ const config: IGraphQLConfig = {
             contextType: "../types#Context",
             mapperTypeSuffix: "Model",
             mappers: {
+              Booking: "@prisma/client#Booking",
               ContactCategory: "@prisma/client#ContactCategory",
               ContactRequest: "@prisma/client#ContactRequest",
-              Document: "@prisma/client#Document",
             },
             maybeValue: "T | null | void",
+            scalars: {
+              Cuid: "string",
+              DateTime: "string",
+              EmailAddress: "string",
+              PhoneNumber: "string",
+            },
             useTypeImports: true,
           },
         },

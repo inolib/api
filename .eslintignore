@@ -1,8 +1,10 @@
+/.react-email/
 /.vercel/
 /api/
 /coverage/
 /node_modules/
 /src/modules/**/types.ts
+/stripe/
 
 !/.config/
 !**/*.cjs

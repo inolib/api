@@ -17,13 +17,13 @@ type Mutation {
 type ContactCategory {
   id: Cuid!
   name: String!
+
   requests: [ContactRequest!]!
 }
 
 type ContactRequest {
   id: Cuid!
   categoryId: Cuid!
-  category: ContactCategory!
   companyName: String!
   firstName: String!
   lastName: String!
@@ -31,4 +31,6 @@ type ContactRequest {
   phone: PhoneNumber!
   message: String!
   createdAt: DateTime!
+
+  category: ContactCategory!
 }

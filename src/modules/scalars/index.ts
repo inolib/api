@@ -1,7 +1,8 @@
-import { createModule } from "graphql-modules";
-import { resolvers } from "graphql-scalars";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { createModule } from "graphql-modules";
+import { resolvers } from "graphql-scalars";
 
 import typeDefs from "./typeDefs.gql";
 

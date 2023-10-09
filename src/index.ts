@@ -1,24 +1,23 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useGraphQLModules } from "@envelop/graphql-modules";
-import { PrismaClient } from "@prisma/client";
+import express from "express";
 import { createApplication } from "graphql-modules";
 import { createYoga } from "graphql-yoga";
-import { createTransport } from "nodemailer";
+
+import "dotenv/config";
 
 import { modules } from "./modules";
+import { prisma } from "./prisma/prisma";
+import { stripe } from "./stripe/stripe";
+import { webhook as stripeWebhook } from "./stripe/webhook";
+// import { postmark } from "./postmark/postmark";
 
 const yoga = createYoga({
   plugins: [useGraphQLModules(createApplication({ modules }))],
   context: {
-    mailer: createTransport({
-      host: "smtp-mail.outlook.com",
-      port: 587,
-      service: "Outlook365",
-      auth: {
-        user: process.env.MAILER_USER,
-        pass: process.env.MAILER_PASS,
-      },
-    }),
-    prisma: new PrismaClient(),
+    // postmark,
+    prisma,
+    stripe,
   },
   cors: {
     allowedHeaders: ["Content-Type"],
@@ -26,9 +25,14 @@ const yoga = createYoga({
     origin: process.env.CORS_ORIGIN ?? "*",
   },
   graphiql: process.env.VERCEL_ENV !== "production",
-  graphqlEndpoint: "/",
   landingPage: false,
 });
 
-export const viteNodeApp = yoga;
-export default yoga;
+const app = express();
+
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+app.use("/graphql", yoga);
+app.post("/stripe/webhook", stripeWebhook);
+
+export const viteNodeApp = app;
+export default app;
