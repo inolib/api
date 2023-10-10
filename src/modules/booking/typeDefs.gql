@@ -1,9 +1,10 @@
 extend type Query {
-  readBooking(clientSecret: String!): Booking
+  readBooking(paymentIntentId: String!): Booking
 }
 
 type Booking {
   id: Cuid!
+  paymentIntentId: String!
   datetime: DateTime!
   firstName: String!
   lastName: String!
@@ -12,5 +13,4 @@ type Booking {
   email: String!
   tel: String!
   createdAt: DateTime!
-  clientSecret: String!
 }
