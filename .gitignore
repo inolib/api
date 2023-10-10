@@ -7,4 +7,4 @@
 /src/modules/scalars/*.gql
 /src/modules/scalars/*.graphql
 /stripe/
-/.env*
+/.env

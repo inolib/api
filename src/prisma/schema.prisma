@@ -19,6 +19,7 @@ model Booking {
   email             String
   tel               String
   createdAt         DateTime @default(now())
+  clientSecret      String   @unique
 }
 
 model ContactCategory {

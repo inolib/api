@@ -1,18 +1,20 @@
 import type { RequestHandler } from "express";
 import { isPossiblePhoneNumber } from "libphonenumber-js";
-// import type Stripe from "stripe";
+import type Stripe from "stripe";
 import {
   custom,
   email,
   minLength,
   object,
-  // safeParse,
+  safeParse,
   string,
   toTrimmed,
   type Input,
 } from "valibot";
 
-// import { prisma } from "../prisma/prisma";
+import { toLocaleDateString, toLocaleTimeString } from "../helpers";
+import { postmark } from "../postmark/postmark";
+import { prisma } from "../prisma/prisma";
 
 export type Booking = Input<typeof BookingSchema>;
 
@@ -47,36 +49,66 @@ const BookingSchema = object({
 });
 
 export const webhook: RequestHandler = (request, response) => {
-  void (() => {
-    console.log(request.body);
+  void (async () => {
+    const event = request.body as Stripe.Event;
 
-    // const event = JSON.parse(JSON.stringify(request.body)) as Stripe.Event;
+    switch (event.type) {
+      case "payment_intent.succeeded": {
+        const paymentIntent = event.data.object as Stripe.PaymentIntent;
 
-    // switch (event.type) {
-    //   case "payment_intent.succeeded": {
-    //     const paymentIntent = event.data.object as Stripe.PaymentIntent;
+        const result = safeParse(BookingSchema, paymentIntent.metadata);
 
-    //     const result = safeParse(BookingSchema, paymentIntent.metadata);
+        if (result.success) {
+          const booking = await prisma.booking.create({
+            data: {
+              datetime: result.output.datetime,
+              email: result.output.email,
+              firstName: result.output.firstName,
+              lastName: result.output.lastName,
+              organization: result.output.organization,
+              organizationTitle: result.output.organizationTitle,
+              tel: result.output.tel,
+              clientSecret: paymentIntent.client_secret ?? "",
+            },
+          });
 
-    //     if (result.success) {
-    //       const booking = await prisma.booking.create({
-    //         data: {
-    //           datetime: result.output.datetime,
-    //           email: result.output.email,
-    //           firstName: result.output.firstName,
-    //           lastName: result.output.lastName,
-    //           organization: result.output.organization,
-    //           organizationTitle: result.output.organizationTitle,
-    //           tel: result.output.tel,
-    //         },
-    //       });
+          await postmark.sendEmail({
+            From: "contact@inolib.com",
+            To: booking.email,
+            Subject: "Merci pour votre réservation !",
+            TextBody:
+              `Bonjour ${booking.firstName},\n\n` +
+              `Nous vous donnons rendez-vous le ${toLocaleDateString(
+                booking.datetime,
+              )} à ${toLocaleTimeString(
+                booking.datetime,
+              )} pour assister à la conférence « L’accessibilité numérique, un monde d’opportunités ».\n\n` +
+              `Djebrine ALOUI, fondateur et CEO d’INOLIB, vous présentera les enjeux de l’accessibilité aujourd’hui et vous repartirez avec des directives claires pour entreprendre vos premières démarches vers l’accessibilité numérique.\n\n` +
+              `Vous recevrez un e-mail avec un lien de participation à la conférence en ligne quelques jours avant la date prévue.\n\n` +
+              `Dans l’attente de vous rencontrer, l’équipe d’INOLIB reste à votre disposition, vous pouvez nous écrire à contact@inolib.com ou répondre à cet e-mail.`,
+            MessageStream: "thanks",
+          });
 
-    //       // TODO: send email
-    //     }
+          await postmark.sendEmail({
+            From: "contact@inolib.com",
+            To: "djebrine.aloui@inolib.com",
+            Subject: `Nouvelle réservation pour la conférence du ${toLocaleDateString(
+              booking.datetime,
+            )} à ${toLocaleTimeString(booking.datetime)}`,
+            TextBody:
+              `Prénom : ${booking.firstName}\n` +
+              `Nom de famille : ${booking.lastName}\n` +
+              `Entreprise : ${booking.organization}\n` +
+              `Fonction : ${booking.organizationTitle}\n` +
+              `Adresse e-mail : ${booking.email}\n` +
+              `Numéro de téléphone : ${booking.tel}`,
+            MessageStream: "notification",
+          });
+        }
 
-    //     break;
-    //   }
-    // }
+        break;
+      }
+    }
 
     response.send();
   })();

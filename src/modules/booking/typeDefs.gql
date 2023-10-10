@@ -1,0 +1,16 @@
+extend type Query {
+  readBooking(clientSecret: String!): Booking
+}
+
+type Booking {
+  id: Cuid!
+  datetime: DateTime!
+  firstName: String!
+  lastName: String!
+  organization: String!
+  organizationTitle: String!
+  email: String!
+  tel: String!
+  createdAt: DateTime!
+  clientSecret: String!
+}
