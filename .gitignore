@@ -6,5 +6,5 @@
 /src/modules/**/types.ts
 /src/modules/scalars/*.gql
 /src/modules/scalars/*.graphql
-/stripe/
+/src/stripe/fixtures/
 /.env

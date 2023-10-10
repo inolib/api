@@ -34,11 +34,15 @@ const app = express();
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 app.use("/graphql", yoga);
 
-app.post(
-  "/stripe/webhook",
-  express.json({ type: "application/json" }),
-  stripeWebhook,
-);
+if (process.env.VERCEL_ENV === "development") {
+  app.post("/stripe/webhook", stripeWebhook);
+} else {
+  app.post(
+    "/stripe/webhook",
+    express.json({ type: "application/json" }),
+    stripeWebhook,
+  );
+}
 
 export const viteNodeApp = app;
 export default app;
