@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+
 import { useGraphQLModules } from "@envelop/graphql-modules";
 import express from "express";
 import { createApplication } from "graphql-modules";
@@ -7,15 +8,15 @@ import { createYoga } from "graphql-yoga";
 import "dotenv/config";
 
 import { modules } from "./modules";
+import { postmark } from "./postmark/postmark";
 import { prisma } from "./prisma/prisma";
 import { stripe } from "./stripe/stripe";
 import { webhook as stripeWebhook } from "./stripe/webhook";
-// import { postmark } from "./postmark/postmark";
 
 const yoga = createYoga({
   plugins: [useGraphQLModules(createApplication({ modules }))],
   context: {
-    // postmark,
+    postmark,
     prisma,
     stripe,
   },
