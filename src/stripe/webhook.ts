@@ -90,7 +90,7 @@ export const webhook: RequestHandler = (request, response) => {
                 )} pour assister à la conférence « L’accessibilité numérique, un monde d’opportunités ».\n\n` +
                 `Djebrine ALOUI, fondateur et CEO d’INOLIB, vous présentera les enjeux de l’accessibilité aujourd’hui et vous repartirez avec des directives claires pour entreprendre vos premières démarches vers l’accessibilité numérique.\n\n` +
                 `Vous recevrez un e-mail avec un lien de participation à la conférence en ligne quelques jours avant la date prévue.\n\n` +
-                `Dans l’attente de vous rencontrer, l’équipe d’INOLIB reste à votre disposition, vous pouvez nous écrire à contact@inolib.com ou répondre à cet e-mail.`,
+                `Dans l’attente de vous rencontrer, l’équipe d’INOLIB reste à votre disposition, vous pouvez nous écrire à contact@inolib.com ou nous appeler au 06 47 21 86 69.`,
               MessageStream: "outbound",
             });
           } else {
@@ -107,7 +107,7 @@ export const webhook: RequestHandler = (request, response) => {
                 )} pour assister à la conférence « L’accessibilité numérique, un monde d’opportunités ».\n\n` +
                 `Djebrine ALOUI, fondateur et CEO d’INOLIB, vous présentera les enjeux de l’accessibilité aujourd’hui et vous repartirez avec des directives claires pour entreprendre vos premières démarches vers l’accessibilité numérique.\n\n` +
                 `Vous recevrez un e-mail avec un lien de participation à la conférence en ligne quelques jours avant la date prévue.\n\n` +
-                `Dans l’attente de vous rencontrer, l’équipe d’INOLIB reste à votre disposition, vous pouvez nous écrire à contact@inolib.com ou répondre à cet e-mail.`,
+                `Dans l’attente de vous rencontrer, l’équipe d’INOLIB reste à votre disposition, vous pouvez nous écrire à contact@inolib.com ou nous appeler au 06 47 21 86 69.`,
               MessageStream: "thanks",
             });
 
