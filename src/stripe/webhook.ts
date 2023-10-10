@@ -65,6 +65,7 @@ export const webhook: RequestHandler = (request, response) => {
         if (result.success) {
           const booking = await prisma.booking.create({
             data: {
+              paymentIntentId: paymentIntent.id,
               datetime: new Date(
                 Number(result.output.datetime) * 1000,
               ).toISOString(),
@@ -74,7 +75,6 @@ export const webhook: RequestHandler = (request, response) => {
               organization: result.output.organization,
               organizationTitle: result.output.organizationTitle,
               tel: result.output.tel,
-              clientSecret: paymentIntent.client_secret ?? "",
             },
           });
 
