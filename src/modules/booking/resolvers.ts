@@ -5,7 +5,7 @@ export const resolvers: Resolvers = {
     readBooking: async (_, args, context) => {
       return await context.prisma.booking.findUnique({
         where: {
-          clientSecret: args.clientSecret,
+          paymentIntentId: args.paymentIntentId,
         },
       });
     },
