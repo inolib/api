@@ -63,20 +63,27 @@ export const webhook: RequestHandler = (request, response) => {
         const result = safeParse(BookingSchema, paymentIntent.metadata);
 
         if (result.success) {
-          const booking = await prisma.booking.create({
-            data: {
-              datetime: new Date(
-                Number(result.output.datetime) * 1000,
-              ).toISOString(),
-              email: result.output.email,
-              firstName: result.output.firstName,
-              lastName: result.output.lastName,
-              organization: result.output.organization,
-              organizationTitle: result.output.organizationTitle,
-              tel: result.output.tel,
-              clientSecret: paymentIntent.client_secret ?? "",
-            },
-          });
+          // const booking = await prisma.booking.create({
+          //   data: {
+          //     datetime: new Date(
+          //       Number(result.output.datetime) * 1000,
+          //     ).toISOString(),
+          //     email: result.output.email,
+          //     firstName: result.output.firstName,
+          //     lastName: result.output.lastName,
+          //     organization: result.output.organization,
+          //     organizationTitle: result.output.organizationTitle,
+          //     tel: result.output.tel,
+          //     clientSecret: paymentIntent.client_secret ?? "",
+          //   },
+          // });
+
+          const booking = {
+            ...result.output,
+            datetime: new Date(
+              Number(result.output.datetime) * 1000,
+            ).toISOString(),
+          };
 
           if (process.env.VERCEL_ENV === "development") {
             await postmark.sendEmail({
