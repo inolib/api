@@ -63,27 +63,20 @@ export const webhook: RequestHandler = (request, response) => {
         const result = safeParse(BookingSchema, paymentIntent.metadata);
 
         if (result.success) {
-          // const booking = await prisma.booking.create({
-          //   data: {
-          //     datetime: new Date(
-          //       Number(result.output.datetime) * 1000,
-          //     ).toISOString(),
-          //     email: result.output.email,
-          //     firstName: result.output.firstName,
-          //     lastName: result.output.lastName,
-          //     organization: result.output.organization,
-          //     organizationTitle: result.output.organizationTitle,
-          //     tel: result.output.tel,
-          //     clientSecret: paymentIntent.client_secret ?? "",
-          //   },
-          // });
-
-          const booking = {
-            ...result.output,
-            datetime: new Date(
-              Number(result.output.datetime) * 1000,
-            ).toISOString(),
-          };
+          const booking = await prisma.booking.create({
+            data: {
+              datetime: new Date(
+                Number(result.output.datetime) * 1000,
+              ).toISOString(),
+              email: result.output.email,
+              firstName: result.output.firstName,
+              lastName: result.output.lastName,
+              organization: result.output.organization,
+              organizationTitle: result.output.organizationTitle,
+              tel: result.output.tel,
+              clientSecret: paymentIntent.client_secret ?? "",
+            },
+          });
 
           if (process.env.VERCEL_ENV === "development") {
             await postmark.sendEmail({
@@ -98,7 +91,7 @@ export const webhook: RequestHandler = (request, response) => {
                   booking.datetime,
                 )} pour assister à la conférence « L’accessibilité numérique, un monde d’opportunités ».\n\n` +
                 `Djebrine ALOUI, fondateur et CEO d’INOLIB, vous présentera les enjeux de l’accessibilité aujourd’hui et vous repartirez avec des directives claires pour entreprendre vos premières démarches vers l’accessibilité numérique.\n\n` +
-                `Vous recevrez un e-mail avec un lien de participation à la conférence en ligne quelques jours avant la date prévue.\n\n` +
+                `Vous recevrez un e-mail avec un lien de participation à la conférence en ligne la veille de l’événement.\n\n` +
                 `Dans l’attente de vous rencontrer, l’équipe d’INOLIB reste à votre disposition, vous pouvez nous écrire à contact@inolib.com ou nous appeler au 06 47 21 86 69.`,
               MessageStream: "outbound",
             });
@@ -115,7 +108,7 @@ export const webhook: RequestHandler = (request, response) => {
                   booking.datetime,
                 )} pour assister à la conférence « L’accessibilité numérique, un monde d’opportunités ».\n\n` +
                 `Djebrine ALOUI, fondateur et CEO d’INOLIB, vous présentera les enjeux de l’accessibilité aujourd’hui et vous repartirez avec des directives claires pour entreprendre vos premières démarches vers l’accessibilité numérique.\n\n` +
-                `Vous recevrez un e-mail avec un lien de participation à la conférence en ligne quelques jours avant la date prévue.\n\n` +
+                `Vous recevrez un e-mail avec un lien de participation à la conférence en ligne la veille de l’événement.\n\n` +
                 `Dans l’attente de vous rencontrer, l’équipe d’INOLIB reste à votre disposition, vous pouvez nous écrire à contact@inolib.com ou nous appeler au 06 47 21 86 69.`,
               MessageStream: "thanks",
             });
