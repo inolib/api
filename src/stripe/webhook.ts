@@ -56,22 +56,18 @@ export const webhook: RequestHandler = (request, response) => {
         : request.body
     ) as Stripe.Event;
 
-    console.log(event);
-
     switch (event.type) {
       case "payment_intent.succeeded": {
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
 
         const result = safeParse(BookingSchema, paymentIntent.metadata);
 
-        console.log(paymentIntent.metadata, result);
-
         if (result.success) {
           const booking = await prisma.booking.create({
             data: {
               paymentIntentId: paymentIntent.id,
               datetime: new Date(
-                Number(result.output.datetime) * 1000,
+                Number.parseInt(result.output.datetime) * 1000,
               ).toISOString(),
               email: result.output.email,
               firstName: result.output.firstName,
