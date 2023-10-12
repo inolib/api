@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import { useGraphQLModules } from "@envelop/graphql-modules";
+import cors from "cors";
 import express from "express";
 import { createApplication } from "graphql-modules";
 import { createYoga } from "graphql-yoga";
@@ -20,16 +21,13 @@ const yoga = createYoga({
     prisma,
     stripe,
   },
-  cors: {
-    allowedHeaders: ["Content-Type"],
-    methods: ["POST"],
-    origin: process.env.CORS_ORIGIN ?? "*",
-  },
   graphiql: process.env.VERCEL_ENV !== "production",
   landingPage: false,
 });
 
 const app = express();
+
+app.use(cors());
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 app.use("/graphql", yoga);
