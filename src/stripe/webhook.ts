@@ -78,24 +78,7 @@ export const webhook: RequestHandler = (request, response) => {
             },
           });
 
-          if (process.env.VERCEL_ENV === "development") {
-            await postmark.sendEmail({
-              From: "contact@inolib.com",
-              To: booking.email,
-              Subject: "Merci pour votre réservation !",
-              TextBody:
-                `Bonjour ${booking.firstName},\n\n` +
-                `Nous vous donnons rendez-vous le ${toLocaleDateString(
-                  booking.datetime,
-                )} à ${toLocaleTimeString(
-                  booking.datetime,
-                )} pour assister à la conférence « L’accessibilité numérique, un monde d’opportunités ».\n\n` +
-                `Djebrine ALOUI, fondateur et CEO d’INOLIB, vous présentera les enjeux de l’accessibilité aujourd’hui et vous repartirez avec des directives claires pour entreprendre vos premières démarches vers l’accessibilité numérique.\n\n` +
-                `Vous recevrez un e-mail avec un lien de participation à la conférence en ligne la veille de l’événement.\n\n` +
-                `Dans l’attente de vous rencontrer, l’équipe d’INOLIB reste à votre disposition, vous pouvez nous écrire à contact@inolib.com ou nous appeler au +33 6 47 21 86 69.`,
-              MessageStream: "outbound",
-            });
-          } else {
+          if (process.env.VERCEL_ENV === "production") {
             await postmark.sendEmail({
               From: "contact@inolib.com",
               To: booking.email,
@@ -127,6 +110,23 @@ export const webhook: RequestHandler = (request, response) => {
                 `Adresse e-mail : ${booking.email}\n` +
                 `Numéro de téléphone : ${booking.tel}`,
               MessageStream: "notification",
+            });
+          } else {
+            await postmark.sendEmail({
+              From: "contact@inolib.com",
+              To: booking.email,
+              Subject: "Merci pour votre réservation !",
+              TextBody:
+                `Bonjour ${booking.firstName},\n\n` +
+                `Nous vous donnons rendez-vous le ${toLocaleDateString(
+                  booking.datetime,
+                )} à ${toLocaleTimeString(
+                  booking.datetime,
+                )} pour assister à la conférence « L’accessibilité numérique, un monde d’opportunités ».\n\n` +
+                `Djebrine ALOUI, fondateur et CEO d’INOLIB, vous présentera les enjeux de l’accessibilité aujourd’hui et vous repartirez avec des directives claires pour entreprendre vos premières démarches vers l’accessibilité numérique.\n\n` +
+                `Vous recevrez un e-mail avec un lien de participation à la conférence en ligne la veille de l’événement.\n\n` +
+                `Dans l’attente de vous rencontrer, l’équipe d’INOLIB reste à votre disposition, vous pouvez nous écrire à contact@inolib.com ou nous appeler au +33 6 47 21 86 69.`,
+              MessageStream: "outbound",
             });
           }
         }
