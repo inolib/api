@@ -64,6 +64,8 @@ export const webhook: RequestHandler = (request, response) => {
 
         const result = safeParse(BookingSchema, paymentIntent.metadata);
 
+        console.log(paymentIntent.metadata, result);
+
         if (result.success) {
           const booking = await prisma.booking.create({
             data: {
