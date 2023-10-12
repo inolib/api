@@ -56,6 +56,8 @@ export const webhook: RequestHandler = (request, response) => {
         : request.body
     ) as Stripe.Event;
 
+    console.log(event);
+
     switch (event.type) {
       case "payment_intent.succeeded": {
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
