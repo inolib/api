@@ -1,8 +1,8 @@
 import type { RequestHandler } from "express";
-import { isPossiblePhoneNumber } from "libphonenumber-js";
+// import { isPossiblePhoneNumber } from "libphonenumber-js";
 import type Stripe from "stripe";
 import {
-  custom,
+  // custom,
   email,
   minLength,
   object,
@@ -44,7 +44,7 @@ const BookingSchema = object({
   tel: string([
     toTrimmed(),
     minLength(1, "Veuillez entrer votre numéro de téléphone."),
-    custom(isPossiblePhoneNumber, "Numéro de téléphone invalide."),
+    // custom(isPossiblePhoneNumber, "Numéro de téléphone invalide."),
   ]),
 });
 
