@@ -10,5 +10,8 @@ export const toLocaleDateString = (datetime: Date | string) =>
 
 export const toLocaleTimeString = (datetime: Date | string) =>
   (datetime instanceof Date ? datetime : new Date(datetime))
-    .toLocaleTimeString("fr-FR", { hour: "2-digit", timeZone: "Europe/Paris" })
+    .toLocaleTimeString("fr-FR", {
+      hour: "2-digit",
+      timeZone: "Europe/Paris",
+    })
     .replace(" ", " ");
