@@ -49,14 +49,12 @@ export const resolvers: Resolvers = {
     createBooking: async (_, args, context) => {
       const result = safeParse(BookingSchema, args);
 
-      console.log(args);
+      console.log(typeof args.datetime);
 
       if (result.success) {
         const booking = await context.prisma.booking.create({
           data: {
-            datetime: new Date(
-              Number.parseInt(result.output.datetime) * 1000,
-            ).toISOString(),
+            datetime: result.output.datetime,
             email: result.output.email,
             firstName: result.output.firstName,
             lastName: result.output.lastName,
