@@ -49,7 +49,7 @@ export const resolvers: Resolvers = {
     createBooking: async (_, args, context) => {
       const result = safeParse(BookingSchema, args);
 
-      console.log(result);
+      console.log(args);
 
       if (result.success) {
         const booking = await context.prisma.booking.create({
