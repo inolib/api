@@ -1,9 +1,7 @@
 import type { PrismaClient } from "@prisma/client";
-import type { Transporter } from "nodemailer";
-import type { Stripe } from "stripe";
+import type Postmark from "postmark";
 
 export type Context = {
-  mailer: Transporter;
+  postmark: Postmark.ServerClient;
   prisma: PrismaClient;
-  stripe: Stripe;
 };

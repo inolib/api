@@ -19,16 +19,17 @@ export const resolvers: Resolvers = {
           message: args.message,
         },
       });
-      try {
-        await context.mailer.sendMail({
-          from: "matthieu.meignan@inolib.com",
-          to: "matthieu.meignan@inolib.com",
-          subject: "TEST",
-          text: JSON.stringify(contactRequest),
-        });
-      } catch (error) {
-        console.error(error);
-      }
+
+      // try {
+      //   await context.mailer.sendMail({
+      //     from: "matthieu.meignan@inolib.com",
+      //     to: "matthieu.meignan@inolib.com",
+      //     subject: "TEST",
+      //     text: JSON.stringify(contactRequest),
+      //   });
+      // } catch (error) {
+      //   console.error(error);
+      // }
 
       return contactRequest;
     },
