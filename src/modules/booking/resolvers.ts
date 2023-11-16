@@ -1,4 +1,5 @@
 import {
+  date,
   // custom,
   email,
   minLength,
@@ -7,7 +8,6 @@ import {
   string,
   toTrimmed,
   type Input,
-  date,
 } from "valibot";
 
 import { toLocaleDateString, toLocaleTimeString } from "../../helpers";
