@@ -1,4 +1,5 @@
 import {
+  date,
   // custom,
   email,
   minLength,
@@ -15,7 +16,7 @@ import type { Resolvers } from "./types";
 export type Booking = Input<typeof BookingSchema>;
 
 const BookingSchema = object({
-  datetime: string("Veuillez sélectionner une date."),
+  datetime: date("Veuillez sélectionner une date."),
   firstName: string([
     toTrimmed(),
     minLength(1, "Veuillez entrer votre prénom."),
@@ -52,9 +53,7 @@ export const resolvers: Resolvers = {
       if (result.success) {
         const booking = await context.prisma.booking.create({
           data: {
-            datetime: new Date(
-              Number.parseInt(result.output.datetime) * 1000,
-            ).toISOString(),
+            datetime: result.output.datetime,
             email: result.output.email,
             firstName: result.output.firstName,
             lastName: result.output.lastName,
