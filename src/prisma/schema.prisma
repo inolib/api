@@ -22,26 +22,20 @@ model Booking {
   createdAt         DateTime @default(now())
 }
 
-model ContactCategory {
-  id        String   @id @default(cuid())
-  name      String   @unique
-  createdAt DateTime @default(now())
-
-  requests ContactRequest[]
+enum ContactCategory {
+  AUDIT
+  DEVELOPMENT
+  TRAINING
 }
 
 model ContactRequest {
-  id          String   @id @default(cuid())
-  categoryId  String
-  companyName String
-  firstName   String
-  lastName    String
-  email       String
-  phone       String
-  message     String   @db.Text
-  createdAt   DateTime @default(now())
-
-  category ContactCategory @relation(fields: [categoryId], references: [id])
-
-  @@index([categoryId])
+  id           String          @id @default(cuid())
+  category     ContactCategory
+  email        String
+  familyName   String
+  givenName    String
+  message      String          @db.Text
+  organization String?
+  tel          String?
+  createdAt    DateTime        @default(now())
 }

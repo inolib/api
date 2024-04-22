@@ -1,36 +1,23 @@
-type Query {
-  contactCategories: [ContactCategory!]!
-}
-
 type Mutation {
-  newContactRequest(
-    categoryId: String!
-    companyName: String!
-    firstName: String!
-    lastName: String!
+  createContactRequest(
+    category: String!
     email: String!
-    phone: String!
+    familyName: String!
+    givenName: String!
     message: String!
+    organization: String
+    tel: String
   ): ContactRequest
-}
-
-type ContactCategory {
-  id: Cuid!
-  name: String!
-
-  requests: [ContactRequest!]!
 }
 
 type ContactRequest {
   id: Cuid!
-  categoryId: Cuid!
-  companyName: String!
-  firstName: String!
-  lastName: String!
+  category: String!
   email: EmailAddress!
-  phone: PhoneNumber!
+  familyName: String!
+  givenName: String!
   message: String!
+  organization: String
+  tel: PhoneNumber
   createdAt: DateTime!
-
-  category: ContactCategory!
 }
