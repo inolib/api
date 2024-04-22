@@ -1,14 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "./prisma";
 
 const main = async () => {
-  // Booking
-  await prisma.booking.deleteMany();
-
   // ContactCategory
-  await prisma.contactCategory.deleteMany();
-
   await prisma.contactCategory.create({
     data: {
       name: "Audit",
@@ -26,18 +19,12 @@ const main = async () => {
       name: "Formation",
     },
   });
-
-  // ContactRequest
-  await prisma.contactRequest.deleteMany();
 };
 
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-    console.log("Done.");
-  })
-  .catch(async (error) => {
-    await prisma.$disconnect();
-    console.error(error);
-    process.exit(1);
-  });
+try {
+  await main();
+} catch (error) {
+  console.error(error);
+} finally {
+  await prisma.$disconnect();
+}
