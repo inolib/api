@@ -10,6 +10,8 @@ type Mutation {
   ): ContactRequest
 }
 
+type Query {}
+
 type ContactRequest {
   id: Cuid!
   category: String!
