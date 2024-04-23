@@ -10,7 +10,9 @@ type Mutation {
   ): ContactRequest
 }
 
-type Query {}
+type Query {
+  readContactRequest(id: String!): ContactRequest
+}
 
 type ContactRequest {
   id: Cuid!
