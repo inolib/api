@@ -5,17 +5,23 @@ import cors from "cors";
 import express from "express";
 import { createApplication } from "graphql-modules";
 import { createYoga } from "graphql-yoga";
+import nodemailer from "nodemailer";
 
 import "dotenv/config";
 
 import { modules } from "./modules";
-import { postmark } from "./postmark/postmark";
 import { prisma } from "./prisma/prisma";
 
 const yoga = createYoga({
   plugins: [useGraphQLModules(createApplication({ modules }))],
   context: {
-    postmark,
+    mailer: nodemailer.createTransport({
+      service: "Outlook365",
+      auth: {
+        user: process.env.NODEMAILER_USER,
+        pass: process.env.NODEMAILER_PASS,
+      },
+    }),
     prisma,
   },
   graphiql: process.env.VERCEL_ENV !== "production",

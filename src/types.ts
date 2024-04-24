@@ -1,7 +1,8 @@
 import type { PrismaClient } from "@prisma/client";
-import type Postmark from "postmark";
+import type { Transporter } from "nodemailer";
+import type SMTPTransport from "nodemailer/lib/smtp-transport";
 
 export type Context = {
-  postmark: Postmark.ServerClient;
+  mailer: Transporter<SMTPTransport.SentMessageInfo>;
   prisma: PrismaClient;
 };
